@@ -1,0 +1,53 @@
+
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<div class="card mb-3" style="max-width: 45rem;">
+
+	<img src ="{{ blog.blog_image.url }}" alt="My image" style="width:100%;height:250px;" class="card-img-top">
+	<div class="card-body">
+<div class="card-title"><h1>{{ blog.name }}</h1></div>
+<div class="card-text">
+<p><strong>Post date</strong> {{ blog.post_date }}</p>
+<p><strong>Author:</strong> <a href="{% url 'blogs-by-author' blog.author.pk %}">{{ blog.author }}</a></p>
+</div>
+<p><a id ="btn1" class='like-btn badge badge-pill badge-dark' data-href='{{ blog.get_api_like_url }}' data-likes='{{ blog.likes.count }}' href='{{ blog.get_api_like_url }}'>{{ blog.likes.count }}
+	{% if user in blog.likes.all %}
+	unlike
+	{% else %}
+	like
+	{% endif %}
+</a></p>
+</div>
+</div>
+<p><strong>Content:</strong></p>
+<p style="white-space:pre-wrap;">{{ blog.description }}</p>
+
+
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Comments</h4>
+
+{% for comment in blog.blogcomment_set.all %}
+<hr>
+<p>{{comment.author}} ({{comment.post_date}}) - {{comment.description}} [<a id ="btn2" href='{{ comment.get_likecomment_url }}'
+	class='likecomment-btn badge badge-pill badge-dark' data-href='{{ comment.get_api_like_url }}' data-likes='{{ comment.likes.count }}' >{{ comment.likes.count}}{% if user in comment.likes.all %}
+		unlike
+		{% else %}
+		like
+		{% endif %}</a>]
+
+</p>
+{% endfor %}
+<hr>
+{% if user.is_authenticated %}
+  <a href="{% url 'blog_comment' blog.id %}">Add a new comment</a></p>
+{% else %}
+  <p><a href="{% url 'login'%}?next={{request.path}}">Login</a> to add a new comment</p>
+{% endif %} 
+
+
+</div> 
+{% endblock %}
+

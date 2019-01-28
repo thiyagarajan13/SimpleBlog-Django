@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h3>Blog list</h3>
+
+    {% if blog_list %}
+    <ul>
+
+      {% for blog in blog_list %}
+      <ul>
+          <div class="card" style="width:600px;"> 
+              
+                <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p><a href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></p>
+                  <footer class="blockquote-footer">({{blog.post_date}}) — <a href="{% url 'blogs-by-author' blog.author.pk %}"></a>  <cite title="Source Title">{{ blog.author }}</cite></footer>
+                </blockquote>
+              </div>
+            </div>
+<br>
+          </ul>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>There are no blogs.</p>
+    {% endif %}       
+{% endblock %}
+

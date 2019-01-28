@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h3>Bloggers</h3>
+
+    {% if blogauthor_list %}
+    <ul>
+
+      {% for author in blogauthor_list %}
+      <ul>
+          <div class="list-group list-group-flush" style="width:50%">
+              <a href="{% url 'blogs-by-author' author.pk %}" class="list-group-item list-group-item-action ">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ author }} </h5><h6>-{{ author.bio }}</h6>
+                 
+                  </div>
+                </a>
+        <br>  
+          </div>
+      </ul>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>There are no bloggers yet.</p>
+    {% endif %}       
+{% endblock %}
+

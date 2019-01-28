@@ -1,0 +1,17 @@
+<!DOCTYPE html> 
+{% extends "base_generic.html" %}
+{% block content %}
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8"> 
+	<title>blog_image</title> 
+</head> 
+<body> 
+	<form method = "post" enctype="multipart/form-data"> 
+		{% csrf_token %} 
+		{{ form.as_p }} 
+		<button type="submit">Uploadh</button> 
+	</form> 
+</body> 
+</html> 
+{% endblock %}
